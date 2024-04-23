@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security Header Scanner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="{{ 'has-results' if present_headers or absent_headers or raw_headers or error }}">
+    <header>
+        <a href="{{ url_for('about') }}">
+            About/FAQ >
+        </a></header>
+        <form action="/" method="post" class="search-bar">  
+            <input type="search" name="url" pattern=".*\S.*" required>
+            <button class="search-btn" type="submit">
+                <span>Search</span>
+            </button>
+        </form>
+        {% if show_recent_searches %}
+        <div class="dropdown">
+            <button id="dropdownToggle" class="dropdown-toggle">Recent Scans</button>
+            <div id="dropdownContent" class="dropdown-content">
+                <ul>
+                    {% for search in recent_searches %}
+                    <li><a href="#">{{ search.url }} [Grade-{{ search.grade }}%]</a></li>
+                    {% else %}
+                    <li>No recent searches</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+       
+        
+        {% endif %}
+        
+        {% if site %}
+        <div class="site-info">
+            <p>Date - {{ time }} </p>
+            <p>URL - {{ site }}</p>
+            <p>Grade - <span class="{{ 'grade-green' if grade >= 70 else 'grade-yellow' if grade >= 30 else 'grade-red' }}">{{ grade }}%</span></p>
+            <!--<p>IP - {{ ip_address }}</p> -->
+        </div>
+    {% endif %} 
+    <div class="results-container">
+        <div class="results-flex-container">
+        <div class ="sec-headers">
+        {% if present_headers or absent_headers %}
+        <p class="secheadtxt">Security Headers</p>
+        {% for header, details in present_headers.items() %}
+            <details class="header present">
+                <summary>{{ header }} - Present</summary>
+                <p>{{ details.description }}</p>
+            </details>
+        {% endfor %}
+        {% for header, details in absent_headers.items() %}
+            <details class="header absent">
+                <summary>{{ header }} - Absent</summary>
+                <p>{{ details.description }}</p>
+            </details>
+        {% endfor %}
+    {% endif %}
+</div>
+{% if ssl_info %}
+<div class="ssl-info">
+    <div class="ssl-info-card">
+    <h3>SSL/TLS Information</h3>
+    <p><strong>Issued by :</strong><br>
+        {% for key, value in ssl_info['Issuer'].items() %}
+            {{ key }} : {{ value }}<br>
+        {% endfor %}
+        </p>
+        <p><strong>Issued to :</strong><br>
+        {% for key, value in ssl_info['Subject'].items() %}
+            {{ key }} : {{ value }}<br>
+        {% endfor %}
+        </p>
+    <p><strong>Valid From :</strong><br> {{ ssl_info['Valid From'] }}</p>
+    <p><strong>Valid To :</strong><br>{{ ssl_info['Valid To'] }}</p>
+    <p><strong>Days Left to Expire :</strong><br>{{ ssl_info['Days Left to Expire']}}</p>
+    <p><strong>Certificate Version :</strong><br>{{ ssl_info['Certificate Version']}}</p>
+    <p><strong>Serial Number :</strong><br>{{ ssl_info['Serial Number']}}</p>
+    <p><strong>Signature Algorithm :</strong> <br>{{ ssl_info['Signature Algorithm']}}</p>
+    <p><strong>Public Key :</strong> <br>{{ ssl_info['Public Key'] }}</p>
+    <p><strong>Public Key Algorithm :</strong> <br>{{ ssl_info['Public Key Algorithm'] }}</p>
+    <p><strong>Key Usage :</strong> <br>{{ ssl_info['Key Usage']}}</p>
+    <p><strong>Extended Key Usage :</strong> <br> {{ ssl_info['Extended Key Usage']}}</p>
+</div>
+</div>
+</div>
+{% endif %}
+        {% if raw_headers %}
+        <div class="raw-headers-container">
+            <p class="rwheadstxt">Raw Headers</p>
+            {% for header, value in raw_headers.items() %}
+                <div class="raw-header-card">
+                    <span class="header-name">{{ header }} :</span>
+                    <span class="header-value">{{ value }}</span>
+                </div>
+            {% endfor %}
+        </div>      
+        <div class="plain-container">
+        {% if robots_data %}
+        <div class="robots-card">
+            <div class="tooltip" data-tooltip="Instructions for web crawlers, specifying what can and cannot be crawled on the site.">
+                <h2>Robots.txt</h2>
+            </div>
+            <div class= "roboback">
+            {{ robots_data | safe }}
+        </div>
+        </div>
+        {% else %}
+        <div class="robots-card">
+            <div class="tooltip" data-tooltip="Instructions for web crawlers, specifying what can and cannot be crawled on the site.">
+                <h2>Robots.txt</h2>
+            </div>
+            <p>No robots.txt found or could not be fetched.</p>
+        </div>
+    {% endif %}
+
+    {% if security_text %}
+    <div class="security-txt-card">
+        <div class="tooltip" data-tooltip="Information related to the security practices of the website.">
+            <h2>Security.txt</h2>
+        </div>
+        <div class="secuback">{{ security_text | safe }}</div>
+    </div>
+    {% else %}
+    <div class="security-txt-card">
+        <div class="tooltip" data-tooltip="Information related to the security practices of the website.">
+            <h2>Security.txt</h2>
+        </div>
+        <p>No security.txt found or could not be fetched.</p>
+    </div>
+    {% endif %}
+    </div>
+        </div>
+        {% endif %}
+        {% if error %}
+            <p class="error">{{ error }}</p>
+        {% endif %}
+<script src="{{ url_for('static', filename='rcntsrch.js') }}"></script>
+</body>
+</html>

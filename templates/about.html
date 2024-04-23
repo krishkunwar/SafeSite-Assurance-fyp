@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='about.css') }}">
+</head>
+<body>
+    <div class="navigation">
+        <a href="{{ url_for('index') }}">
+            <svg height="20" width="20" viewBox="0 0 2 1" preserveAspectRatio="none">
+                <polyline fill="none" stroke="#777777" stroke-width="0.1" points="0.9,0.1 0.1,0.5 0.9,0.9" />
+            </svg>
+            Home
+        </a>
+    </div>
+    <div class="about-card">
+        <h1>SAFESITE ASSURANCE</h1>
+        <h3>ABOUT THIS SITE</h3>
+        <p>Welcome to SafeSite Assurance, your comprehensive tool for website analysis and security evaluation. This platform is designed for anyone from IT professionals to everyday internet users who are interested in the security status of websites they visit.</p>
+        <h3>OUR VISION</h3>
+        <p>At SafeSite Assurance, our vision is to democratize web security knowledge, making it accessible to all internet users. We aim to empower individuals and organizations by providing them with the tools and knowledge needed to protect themselves online. We believe that an informed internet community is a safer one, and we strive to contribute to a more secure digital world.
+        </p>
+        <h3>WHAT THIS SITE DOES</h3>
+        <p>Website Analysis: SafeSite Assurance allows users to enter any URL to retrieve detailed information about its configuration. This includes analyses of security headers, SSL/TLS certificate details, and robots.txt settings, helping you understand how well a site is protected and if it adheres to best practices in web security.<br><br>Security Features Overview: Dive into the security settings of any website with our tools that analyze HTTP headers and SSL/TLS configurations. Identify potential vulnerabilities and ensure your favorite sites meet the latest security standards.<br><br>Robots and Security.txt Discovery: Discover how web crawlers interact with sites and what security policies they have in place. This website fetches and displays the contents of robots.txt and security.txt files, providing essential insights into site management and security protocols.<br><br>Guided Learning: This site not only analyzes websites but also guides you through understanding what each analyzed component means. Our aim is to make web security accessible and understandable for everyone.
+        </p>
+        <h3>FAQ</h3>
+        
+            <p>What is a security header?<br>Security headers are HTTP response headers that, when set, can enhance the security of your website by helping to mitigate attacks and secure communications.</p>
+            <p>Why is SSL/TLS important?<br> SSL/TLS certificates encrypt the data exchanged between a user's browser and a website, ensuring that sensitive information like passwords and credit card details are transferred securely.</p>
+            <p>What is robots.txt?<br> Robots.txt is a file webmasters use to instruct web crawlers about which pages on their site should or shouldn't be crawled and indexed for search engine results.</p>
+            <p>How do I interpret the results provided by this site?</br> Each analysis result comes with a detailed description 
+            that explains what the data means and why it's important for the security and functionality of the website.</p>
+            <p>What should I do if no SSL/TLS certificate is found for a site?</br> A missing SSL/TLS certificate indicates that the site is not securing its data, which could pose a risk if sensitive information is exchanged. It's advisable to exercise caution and avoid sharing personal information on such sites.</p>
+            <p>What does the security.txt file tell us?<br>The security.txt file provides information about how to report security issues to the website owner, and may include guidelines for security researchers.</p>
+    </div>
+</body>
+</html>

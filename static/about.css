@@ -1,0 +1,73 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:100,300,400);
+body {
+    background: #171717;
+    font-family: 'Poppins', sans-serif;
+    font-size: small;
+    margin: 0;
+    padding: 0;
+}
+
+.navigation {
+    padding: 20px;
+    text-align: left;
+}
+
+.navigation a {
+    
+    padding: 0.5em 0.8em;
+    position: fixed;
+    z-index: 1;
+    border-radius: 8px;
+    color: #555;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    font-size:medium;
+    font-weight:600;
+    transition: 150ms;
+}
+
+a svg polyline {
+    transition: 150ms;
+}
+
+a:hover {
+    color: #333;
+    background: #8c3b4b;
+    border-color: transparent;
+}
+
+a:hover svg polyline {
+    stroke: #000;
+}
+
+
+.about-card {
+    margin: 50px auto;
+    width: 50%;
+    background: transparent;
+    padding: 20px;
+    box-shadow: 16px 16px 16px 16px rgba(0, 0, 0, 0.2);
+    border-top: 3px solid #6F2232;
+    border-bottom: 3px solid #6F2232;
+    border-radius: 0; 
+}
+
+h3 {
+    color: rgb(215, 212, 212);
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 1.5px;
+}
+
+p {
+    color: rgb(199, 195, 195);
+    line-height: 1.6;
+    letter-spacing: 0.2px;
+}
+h1{
+    font-family: 'Lato', sans-serif;
+    letter-spacing: 5px;
+    text-align: center;
+    color:rgb(166, 169, 172);
+    margin-bottom: 10%;
+}
